@@ -3,6 +3,7 @@ package com.marvinjason.huffmancoding;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,7 +17,7 @@ public class HuffmanCoding
 {
     private final LinkedHashMap map;
     private final List<Node> nodes;
-    private final List<String> dictionary;
+    private final Map<Character, String> dictionary;
     private final String string;
     private StringBuilder path;
     private int compressedSize;
@@ -32,7 +33,7 @@ public class HuffmanCoding
     {
         map = new LinkedHashMap();
         nodes = new ArrayList();
-        dictionary = new ArrayList();
+        dictionary = new HashMap();
         string = text;
 
         for (char c: text.toCharArray())
@@ -82,7 +83,6 @@ public class HuffmanCoding
             @Override
             public int compare(Node x, Node y)
             {
-                //return Integer.compare(x.getData(), y.getData());
                 return Integer.valueOf(x.getData()).compareTo(Integer.valueOf(y.getData()));
             }
         });
@@ -100,9 +100,7 @@ public class HuffmanCoding
             path = new StringBuilder();
             compress(c, nodes.get(0));
             str.append(path);
-            //System.out.println(c + " - " + path);
-            String temp = c + " - " + path;
-            dictionary.add(temp);
+            dictionary.put(c, path.toString());
         }
 
         uncompressedSize = string.length() * 8;
@@ -175,12 +173,12 @@ public class HuffmanCoding
     }
 
     /**
-     * Returns a list of string that contains key-value pairs, separated by a hyphen,
-     * of a character in the text and its binary representation
+     * Returns a map that contains the binary representation
+     * of each unique character in the text
      * 
-     * @return the list containing hyphen-delimited strings
+     * @return the map containing binary representations
      */
-    public List<String> getDictionary()
+    public Map<Character, String> getDictionary()
     {
         return dictionary;
     }

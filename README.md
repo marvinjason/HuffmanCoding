@@ -27,7 +27,7 @@ You can access the Huffman tree using the root node
 huffman.getRoot();
 ```
 
-or get a list of character to binary representation mapping
+or get a character to binary representation map
 ```java
 huffman.getDictionary();
 ```
